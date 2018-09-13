@@ -1,5 +1,5 @@
 package com.constants;
 
-public enum ComandTypeEnum {
+public enum CommandTypeEnum {
     C, D
 }

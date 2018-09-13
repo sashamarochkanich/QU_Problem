@@ -12,6 +12,8 @@ public class Main {
         Reader reader = new Reader();
         Scanner in = new Scanner(System.in);
         reader.readFromFile(in.next());
+
+
     }
 
 }
