@@ -28,13 +28,6 @@ public class ValidationForRecord extends Validation{
         throw new IncorrectDataInFile(Constants.INCORRECT_DATA_IN_FILE_MESSAGE);
     }
 
-    public static boolean isResponseCorrect(String response) throws IncorrectDataInFile {
-        if ((ResponseEnum.valueOf(response)==ResponseEnum.N)||(ResponseEnum.valueOf(response)==ResponseEnum.P)){
-            return true;
-        }
-        throw new IncorrectDataInFile(Constants.INCORRECT_DATA_IN_FILE_MESSAGE);
-    }
-
     public static boolean isDateCorrect(String date) throws IncorrectDataInFile {
         if (date.matches(DATE_REGEX)){
             return true;

@@ -1,12 +1,16 @@
 package com.parser;
 
 import com.constants.Constants;
+import com.controller.QueryController;
 import com.data.comands.C;
+import com.data.comands.D;
+import com.data.dataType.DateOfComand;
 import com.data.dataType.Question;
 import com.data.dataType.ResponseEnum;
 import com.data.dataType.Service;
 import com.exceptions.IncorrectDataInFile;
 import com.validation.Validation;
+import com.validation.ValidationForQuery;
 import com.validation.ValidationForRecord;
 import com.data.Data;
 
@@ -20,44 +24,63 @@ public class Parser {
 
     private java.util.Date Date;
 
-    public void parseFromFile(BufferedReader reader) throws IOException, IncorrectDataInFile, ParseException {
+    public void parseFromFile(BufferedReader reader) {
+
         Data data = new Data();
         String line;
         String[] splitedLine;
-//        String[] lines;
-//        line = reader.readLine();
-//        lines = line.split(" ");
-//        System.out.println(lines[1]);
-//        System.out.println(lines[0]);
 
-        while ((line = reader.readLine()) != null) {
-            splitedLine = parseLine(line);
-            if (ValidationForRecord.isTypeOfCommandCorrect(splitedLine[0]))
-                if (splitedLine[0]=="C"){
-                    C c = new C();
-                    if (ValidationForRecord.isServiceCorrect(splitedLine[1])) {
-                        c.setService(parseService(splitedLine[1]));
+        try {
+            while ((line = reader.readLine()) != null) {
+                splitedLine = parseLine(line);
+                if (ValidationForRecord.isTypeOfCommandCorrect(splitedLine[0])) {
+                    if (splitedLine[0]=="C"){
+                        C c = new C();
+                        if (ValidationForRecord.isServiceCorrect(splitedLine[1])) {
+                            c.setService(parseService(splitedLine[1]));
+                        }
+                        if (ValidationForRecord.isQuestionCorrect(splitedLine[2])){
+                            c.setQuestionType(parseQuestion(splitedLine[2]));
+                        }
+                        if (ValidationForRecord.isResponseCorrect(splitedLine[3])){
+                            c.setResponseType(parseResponse(splitedLine[3]));
+                        }
+                        if (ValidationForRecord.isDateCorrect(splitedLine[4])){
+                            c.setDate(parseDate(splitedLine[4]));
+                        }
+                        if (ValidationForRecord.isTimeCorrect(splitedLine[5])){
+                            c.setTime(parseTime(splitedLine[5]));
+                        }
+                        data.addRecord(c);
                     }
-                    if (ValidationForRecord.isQuestionCorrect(splitedLine[2])){
-                        c.setQuestionType(parseQuestion(splitedLine[2]));
+                    else {
+                        D d = new D();
+                        if (ValidationForQuery.isServiceCorrect(splitedLine[1])) {
+                            d.setService(parseService(splitedLine[1]));
+                        }
+                        if (ValidationForQuery.isQuestionCorrect(splitedLine[2])){
+                            d.setQuestionType(parseQuestion(splitedLine[2]));
+                        }
+                        if (ValidationForQuery.isResponseCorrect(splitedLine[3])){
+                            d.setResponseType(parseResponse(splitedLine[3]));
+                        }
+                        if (ValidationForQuery.isDatePeriodCorrect(splitedLine[4])){
+                            d.setDateOfComand(parseDatePeriod(splitedLine[4]));
+                        }
+                        QueryController.executeQuery(d);
                     }
-                    if (ValidationForRecord.isResponseCorrect(splitedLine[3])){
-                        c.setResponseType(parseResponse(splitedLine[3]));
-                    }
-                    if (ValidationForRecord.isDateCorrect(splitedLine[4])){
-                        c.setDate(parseDate(splitedLine[4]));
-                    }
-                    if (ValidationForRecord.isTimeCorrect(splitedLine[5])){
-                        c.setTime(parseTime(splitedLine[5]));
-                    }
-                    data.addRecord(c);
                 }
-                else {
 
-                }
-
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IncorrectDataInFile incorrectDataInFile) {
+            incorrectDataInFile.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
+
 
     private String[] parseLine(String line){
         String[] splitedLine;
@@ -96,5 +119,16 @@ public class Parser {
         return Integer.parseInt(time);
     }
 
+    private DateOfComand parseDatePeriod(String datePeriod) throws ParseException {
+        DateOfComand dateOfComand = new DateOfComand();
+        if (datePeriod.length()>10){
+            String[] splitedLine = datePeriod.split(Constants.DATE_SPLITER);
+            dateOfComand.setOfComand(new SimpleDateFormat(ValidationForRecord.DATE_REGEX).parse(splitedLine[0]),new SimpleDateFormat(ValidationForRecord.DATE_REGEX).parse(splitedLine[1]));
+        }
+        else {
+            dateOfComand.setOfComand(new SimpleDateFormat(ValidationForRecord.DATE_REGEX).parse(datePeriod));
+        }
+        return dateOfComand;
+    }
 
 }
