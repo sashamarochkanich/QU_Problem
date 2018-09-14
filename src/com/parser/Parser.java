@@ -27,6 +27,7 @@ public class Parser {
     public void parseFromFile(BufferedReader reader) {
 
         Data data = new Data();
+        QueryController queryController = new QueryController();
         String line;
         String[] splitedLine;
 
@@ -67,7 +68,7 @@ public class Parser {
                         if (ValidationForQuery.isDatePeriodCorrect(splitedLine[4])){
                             d.setDateOfComand(parseDatePeriod(splitedLine[4]));
                         }
-                        QueryController.executeQuery(d);
+                        queryController.executeQuery(d, data);
                     }
                 }
 

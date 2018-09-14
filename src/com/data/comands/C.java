@@ -13,4 +13,12 @@ public class C extends Command {
     public void setTime(int time) {
         this.time = time;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getTime() {
+        return time;
+    }
 }

@@ -11,6 +11,18 @@ public abstract class Command {
     private Question questionType;
     private ResponseEnum responseType;
 
+    public Service getService() {
+        return service;
+    }
+
+    public Question getQuestionType() {
+        return questionType;
+    }
+
+    public ResponseEnum getResponseType() {
+        return responseType;
+    }
+
     public void setService(Service service) {
         this.service = service;
     }

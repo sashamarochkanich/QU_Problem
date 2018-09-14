@@ -12,9 +12,8 @@ public class Data {
         listOfRecords.add(record);
     }
 
-    public ArrayList<Integer> getListOfAvarageTime(D query){
-        ArrayList<Integer> listOf = new ArrayList<Integer>();
-        return listOf;
+    public ArrayList<C> getListOfRecors(){
+        return listOfRecords;
     }
 
 }
