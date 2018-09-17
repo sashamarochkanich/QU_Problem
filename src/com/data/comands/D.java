@@ -10,14 +10,22 @@ public class D extends Command {
         this.dateOfComand = dateOfComand;
     }
 
-    public boolean isRecordSuitable(C record) {
-        if(isServicesEquals(record))
+    public DateOfComand getDateOfComand() {
+        return dateOfComand;
     }
 
-    private boolean isServicesEquals(C record) {
-        if (this.getService().equals(record.getService())){
+    public int timeOfSuitableRecords(C record) {
+        if(isRecordSuitable(record)){
+            return record.getTime();
+        }
+        return 0;
+    }
+
+    private boolean isRecordSuitable(C record) {
+        if ((this.getService().isServiceEquals(record.getService()))&&(this.getQuestionType().isQuestionEquals(record.getQuestionType()))&&(this.getResponseType().isResponseEquals(record.getResponseType()))&&(this.getDateOfComand().isDatePeriodEquals(record.getDate()))){
             return true;
         }
         return false;
     }
+
 }

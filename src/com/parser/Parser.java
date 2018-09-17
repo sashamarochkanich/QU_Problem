@@ -98,6 +98,7 @@ public class Parser {
     }
 
     private Question parseQuestion(String line){
+
         Question question = new Question();
         String[] splitedLine;
         splitedLine = line.split(Constants.SERVICE_OR_QUESTION_SPLITER);
