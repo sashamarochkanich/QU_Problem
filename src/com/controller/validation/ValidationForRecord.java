@@ -5,8 +5,8 @@ import com.model.exceptions.IncorrectDataInFile;
 
 public class ValidationForRecord extends Validation{
 
-    private static String SERVICE_REGEX = "(([1-9]|10)(\\.[1-3])?)|\\*";
-    private static String QUESTION_TYPE_REGEX = "(([1-9]|10)(\\.([1-9]|1[0-9]|20)(\\.[1-5])?)?)|\\*";
+    private static String SERVICE_REGEX = "(([1-9]|10)(\\.[1-3])?)";
+    private static String QUESTION_TYPE_REGEX = "(([1-9]|10)(\\.([1-9]|1[0-9]|20)(\\.[1-5])?)?)";
     public static String TIME_REGEX = "\\d+";
 
     public static boolean isRecordValidate(String[] splitedLine) throws IncorrectDataInFile {
