@@ -12,7 +12,7 @@ import java.text.ParseException;
 public class Reader {
 
 
-    public void readFromFile(String filePath) throws IOException, IncorrectDataInFile, ParseException {
+    public void readFromFile(String filePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         int countOfLinesInFile = Integer.parseInt(reader.readLine());
         if ((countOfLinesInFile > 100000)||(countOfLinesInFile <= 0)){

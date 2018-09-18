@@ -36,4 +36,7 @@ public class ValidationForQuery extends Validation{
     }
 
 
+    public static boolean isQueryValidate(String[] splitedLine) throws IncorrectDataInFile, ParseException {
+        return isServiceCorrect(splitedLine[1]) && isQuestionCorrect(splitedLine[2]) && isResponseCorrect(splitedLine[3]) && isDatePeriodCorrect(splitedLine[4]);
+    }
 }

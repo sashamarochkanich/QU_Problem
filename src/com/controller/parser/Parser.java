@@ -1,5 +1,6 @@
 package com.controller.parser;
 
+import com.controller.writer.Writer;
 import com.model.constants.Constants;
 import com.controller.handler.QueryController;
 import com.model.comands.C;
@@ -36,48 +37,37 @@ public class Parser {
                 if (ValidationForRecord.isTypeOfCommandCorrect(splitedLine[0])) {
                     if ("C".equals(splitedLine[0])){
                         C c = new C();
-                        if (ValidationForRecord.isServiceCorrect(splitedLine[1])) {
-                            c.setService(parseService(splitedLine[1]));
-                        }
-                        if (ValidationForRecord.isQuestionCorrect(splitedLine[2])){
-                            c.setQuestionType(parseQuestion(splitedLine[2]));
-                        }
-                        if (ValidationForRecord.isResponseCorrect(splitedLine[3])){
-                            c.setResponseType(parseResponse(splitedLine[3]));
-                        }
-                        if (ValidationForRecord.isDateCorrect(splitedLine[4])){
-                            c.setDate(parseDate(splitedLine[4]));
-                        }
-                        if (ValidationForRecord.isTimeCorrect(splitedLine[5])){
-                            c.setTime(parseTime(splitedLine[5]));
-                        }
+                        ValidationForRecord.isRecordValidate(splitedLine);
+                        c.setService(parseService(splitedLine[1]));
+                        c.setQuestionType(parseQuestion(splitedLine[2]));
+                        c.setResponseType(parseResponse(splitedLine[3]));
+                        c.setDate(parseDate(splitedLine[4]));
+                        c.setTime(parseTime(splitedLine[5]));
                         data.addRecord(c);
+
                     }
                     else {
                         D d = new D();
-                        if (ValidationForQuery.isServiceCorrect(splitedLine[1])) {
-                            d.setService(parseService(splitedLine[1]));
-                        }
-                        if (ValidationForQuery.isQuestionCorrect(splitedLine[2])){
-                            d.setQuestionType(parseQuestion(splitedLine[2]));
-                        }
-                        if (ValidationForQuery.isResponseCorrect(splitedLine[3])){
-                            d.setResponseType(parseResponse(splitedLine[3]));
-                        }
-                        if (ValidationForQuery.isDatePeriodCorrect(splitedLine[4])){
-                            d.setDateOfComand(parseDatePeriod(splitedLine[4]));
-                        }
+                        ValidationForQuery.isQueryValidate(splitedLine);
+                        d.setService(parseService(splitedLine[1]));
+                        d.setQuestionType(parseQuestion(splitedLine[2]));
+                        d.setResponseType(parseResponse(splitedLine[3]));
+                        d.setDateOfComand(parseDatePeriod(splitedLine[4]));
                         queryController.executeQuery(d, data);
                     }
                 }
 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Writer.write(Constants.PROBLEM_FILE);
         } catch (IncorrectDataInFile incorrectDataInFile) {
-            incorrectDataInFile.printStackTrace();
+            Writer.write(Constants.INCORRECT_DATA_IN_FILE_MESSAGE);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Writer.write(Constants.PARSING_PROBLEM);
+        }
+        catch (Exception e){
+            Writer.write(Constants.GLOBAL_EXEPTION);
+            Writer.write(e.toString());
         }
     }
 
