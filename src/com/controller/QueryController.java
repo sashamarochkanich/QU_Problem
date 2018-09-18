@@ -15,9 +15,11 @@ public class QueryController {
         int totalTimeOfSuitableRecords = 0;
         int countOfSuitableRecords = 0;
         double avarageTime;
+        int recordTime;
         for (C record: listOfRecords){
-            if (d.timeOfSuitableRecords(record) != 0) {
-                totalTimeOfSuitableRecords += d.timeOfSuitableRecords(record);
+            recordTime = d.timeOfSuitableRecords(record);
+            if (recordTime != 0) {
+                totalTimeOfSuitableRecords += recordTime;
                 countOfSuitableRecords++;
             }
         }

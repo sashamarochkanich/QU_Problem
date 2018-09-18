@@ -5,10 +5,12 @@ import com.constants.Constants;
 import com.data.dataType.ResponseEnum;
 import com.exceptions.IncorrectDataInFile;
 
+import java.text.ParseException;
+
 public class ValidationForQuery extends Validation{
-    private static String SERVICE_REGEX = "";
-    private static String QUESTION_TYPE_REGEX = "";
-    public static String DATE_PERIOD_REGEX = "dd.MM.yyyy";
+    private static String SERVICE_REGEX = "(([1-9]|10)(\\.[1-3])?)|\\*";
+    private static String QUESTION_TYPE_REGEX = "(([1-9]|10)(\\.([1-9]|1[0-9]|20)(\\.[1-5])?)?)|\\*";
+    public static String DATE_PERIOD_REGEX = "^(0?[1-9]|[12][0-9]|3[01])[- /.](0?[1-9]|1[012])[- /.]((19|20)\\d\\d)\\-(0?[1-9]|[12][0-9]|3[01])[- /.](0?[1-9]|1[012])[- /.]((19|20)\\d\\d)$";
 
 
     public static boolean isServiceCorrect(String service) throws IncorrectDataInFile {
@@ -25,7 +27,7 @@ public class ValidationForQuery extends Validation{
         throw new IncorrectDataInFile(Constants.INCORRECT_DATA_IN_FILE_MESSAGE);
     }
 
-    public static boolean isDatePeriodCorrect(String date) throws IncorrectDataInFile {
+    public static boolean isDatePeriodCorrect(String date) throws IncorrectDataInFile, ParseException {
         if (date.matches(DATE_REGEX)){
             return true;
         }

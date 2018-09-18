@@ -7,7 +7,9 @@ import com.exceptions.IncorrectDataInFile;
 
 public class Validation {
 
-    public static String DATE_REGEX = "dd.MM.yyyy";
+    public static String DATE_REGEX = "^(0?[1-9]|[12][0-9]|3[01])[- /.](0?[1-9]|1[012])[- /.]((19|20)\\d\\d)$";
+    public static String DATE_REGEX_FOR_PARSER = "dd.MM.yyyy";
+
 
 
     public static boolean isTypeOfCommandCorrect(String command) throws IncorrectDataInFile {

@@ -35,7 +35,7 @@ public class Parser {
             while ((line = reader.readLine()) != null) {
                 splitedLine = parseLine(line);
                 if (ValidationForRecord.isTypeOfCommandCorrect(splitedLine[0])) {
-                    if (splitedLine[0]=="C"){
+                    if ("C".equals(splitedLine[0])){
                         C c = new C();
                         if (ValidationForRecord.isServiceCorrect(splitedLine[1])) {
                             c.setService(parseService(splitedLine[1]));
@@ -92,8 +92,11 @@ public class Parser {
     private Service parseService(String line){
         Service service = new Service();
         String[] splitedLine;
-        splitedLine = line.split(Constants.SERVICE_OR_QUESTION_SPLITER);
-        service.setService(Integer.parseInt(splitedLine[0]),Integer.parseInt(splitedLine[1]));
+        splitedLine = line.split(Constants.SERVICE_OR_QUESTION_SPLITER,0);
+        if (splitedLine.length == Constants.DEFAULT_SERVICE_SIZE) {
+            service.setService(splitedLine[0],splitedLine[1]);
+        }
+        else service.setService(splitedLine[0]);
         return service;
     }
 
@@ -102,19 +105,25 @@ public class Parser {
         Question question = new Question();
         String[] splitedLine;
         splitedLine = line.split(Constants.SERVICE_OR_QUESTION_SPLITER);
-        question.setQuestion(Integer.parseInt(splitedLine[0]),Integer.parseInt(splitedLine[1]),Integer.parseInt(splitedLine[2])) ;
+        if (splitedLine.length == Constants.DEFAULT_QUESTION_SIZE){
+            question.setQuestion(splitedLine[0],splitedLine[1],splitedLine[2]) ;
+        }
+        else if (splitedLine.length == Constants.MIDLE_QUESTION_SIZE){
+            question.setQuestion(splitedLine[0],splitedLine[1]);
+        }
+        else question.setQuestion(splitedLine[0]);
         return question;
     }
 
     private ResponseEnum parseResponse(String line){
-        if (line=="P"){
+        if ("P".equals(line)){
             return ResponseEnum.P;
         }
         else return ResponseEnum.N;
     }
 
     private Date parseDate(String date) throws ParseException {
-        return new SimpleDateFormat(ValidationForRecord.DATE_REGEX).parse(date);
+        return new SimpleDateFormat(ValidationForRecord.DATE_REGEX_FOR_PARSER).parse(date);
     }
 
     private int parseTime(String time) {
@@ -125,10 +134,10 @@ public class Parser {
         DateOfComand dateOfComand = new DateOfComand();
         if (datePeriod.length()>10){
             String[] splitedLine = datePeriod.split(Constants.DATE_SPLITER);
-            dateOfComand.setOfComand(new SimpleDateFormat(ValidationForRecord.DATE_REGEX).parse(splitedLine[0]),new SimpleDateFormat(ValidationForRecord.DATE_REGEX).parse(splitedLine[1]));
+            dateOfComand.setOfComand(new SimpleDateFormat(ValidationForRecord.DATE_REGEX_FOR_PARSER).parse(splitedLine[0]),new SimpleDateFormat(ValidationForRecord.DATE_REGEX_FOR_PARSER).parse(splitedLine[1]));
         }
         else {
-            dateOfComand.setOfComand(new SimpleDateFormat(ValidationForRecord.DATE_REGEX).parse(datePeriod));
+            dateOfComand.setOfComand(new SimpleDateFormat(ValidationForRecord.DATE_REGEX_FOR_PARSER).parse(datePeriod));
         }
         return dateOfComand;
     }

@@ -15,6 +15,18 @@ public class Question {
         this.subcategoryId = subcategoryId;
     }
 
+    public void setQuestion(String questionTypeId, String categoryId) {
+        this.questionTypeId = questionTypeId;
+        this.categoryId = categoryId;
+        this.subcategoryId = "";
+    }
+
+    public void setQuestion(String questionTypeId) {
+        this.questionTypeId = questionTypeId;
+        this.categoryId = "";
+        this.subcategoryId = "";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,9 +34,13 @@ public class Question {
 
         Question question = (Question) o;
 
-        if (!questionTypeId.equals(question.questionTypeId)) return false;
-        if (categoryId != null ? !categoryId.equals(question.categoryId) : question.categoryId != null) return false;
-        return subcategoryId != null ? subcategoryId.equals(question.subcategoryId) : question.subcategoryId == null;
+        if (!questionTypeId.equals(question.questionTypeId)) {
+            return false;
+        }
+        if (categoryId == "") return true;
+        if (categoryId.equals(question.categoryId) && subcategoryId == "") return true;
+//        if (categoryId != null ? !categoryId.equals(question.categoryId) : question.categoryId != null) return false;
+        return subcategoryId.equals(question.subcategoryId);
     }
 
     @Override

@@ -12,8 +12,11 @@ public class Service {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Service service = (Service) o;
-        if (!serviceId.equals(service.serviceId)) return false;
-        return variationId != null ? variationId.equals(service.variationId) : service.variationId == null;
+        if (!serviceId.equals(service.serviceId)) {
+            return false;
+        }
+        if (variationId == "") return true;
+        return variationId.equals(service.variationId);
     }
 
     @Override
@@ -26,6 +29,11 @@ public class Service {
     public void setService(String serviceId, String variationId) {
         this.serviceId = serviceId;
         this.variationId = variationId;
+    }
+
+    public void setService(String serviceId) {
+        this.serviceId = serviceId;
+        this.variationId = "";
     }
 
     public boolean isServiceEquals(Service record) {
