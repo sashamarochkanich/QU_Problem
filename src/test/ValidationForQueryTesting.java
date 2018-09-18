@@ -20,20 +20,25 @@ public class ValidationForQueryTesting {
     @Test
     public void isServiceCorrectTest(){
         String serviceTest = "1.1";
+        boolean flag = false;
         try {
-            assertEquals(true, ValidationForQuery.isServiceCorrect(serviceTest));
+            flag = ValidationForQuery.isServiceCorrect(serviceTest);
         } catch (IncorrectDataInFile incorrectDataInFile) {
             incorrectDataInFile.printStackTrace();
         }
+        assertEquals(true, flag);
     }
 
     @Test
     public void isServiceCorrectExceptionTest(){
         String serviceTest = "1/1kl";
+        String exceptionMessage = "";
         try {
             ValidationForQuery.isServiceCorrect(serviceTest);
         } catch (IncorrectDataInFile incorrectDataInFile) {
-            Assert.assertEquals(Constants.INCORRECT_DATA_IN_FILE_MESSAGE, incorrectDataInFile.getMessage());
+            exceptionMessage = incorrectDataInFile.getMessage();
         }
+        Assert.assertEquals(Constants.INCORRECT_DATA_IN_FILE_MESSAGE, exceptionMessage);
     }
+
 }
