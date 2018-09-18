@@ -56,7 +56,6 @@ public class Parser {
                         queryController.executeQuery(d, data);
                     }
                 }
-
             }
         } catch (IOException e) {
             Writer.write(Constants.PROBLEM_FILE);

@@ -13,11 +13,15 @@ public class Main {
 
     public static void main(String[] args) {
         Reader reader = new Reader();
+        Writer.write(Constants.FIRST_MESSAGE);
         Scanner in = new Scanner(System.in);
         try {
             reader.readFromFile(in.next());
         } catch (IOException e) {
             Writer.write(Constants.PROBLEM_FILE);
+        }
+        catch (Exception e){
+            Writer.write(Constants.GLOBAL_EXEPTION);
         }
     }
 

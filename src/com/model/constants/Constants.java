@@ -7,6 +7,7 @@ public interface Constants {
     String DATE_SPLITER = "\\-";
     String SERVICE_AND_QUESTION_SPECIAL_VALUE = "*";
 
+    String FIRST_MESSAGE = "Enter the path to the record file!";
     String INCORRECT_DATA_IN_FILE_MESSAGE = "You have invalid data in file!";
     String PROBLEM_FILE = "Some problems with opening a file!";
     String PARSING_PROBLEM = "Some problems with parsing a file!";
