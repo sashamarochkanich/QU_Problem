@@ -1,8 +1,8 @@
 package com;
 
 
-import com.exceptions.IncorrectDataInFile;
-import com.reader.Reader;
+import com.model.exceptions.IncorrectDataInFile;
+import com.controller.reader.Reader;
 
 import java.io.IOException;
 import java.text.ParseException;
